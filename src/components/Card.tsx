@@ -26,6 +26,10 @@ export const NewCardInput: React.VFC<InputProps> = ({ id, addCard }) => {
     inputElement.current!.focus();
   }, [id]);
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const s = e.currentTarget.value.trim();
@@ -34,12 +38,6 @@ export const NewCardInput: React.VFC<InputProps> = ({ id, addCard }) => {
         addCard(id, s);
       }
     }
-  };
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("NewCardInput: onChange");
-
-    setText(e.target.value);
   };
 
   return (

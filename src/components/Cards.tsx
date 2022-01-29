@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 
 const Cards = () => {
   let InitialCards: any[] | (() => any[]) = [];
-
   const [cards, setCards] = React.useState(InitialCards);
 
   const addCard = (id: string, text: string) => {

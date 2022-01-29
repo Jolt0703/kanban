@@ -13,16 +13,25 @@ const ColumnTitle: React.FC<ColumnProps> = ({ id, title, setTitle }) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [titleInput, setTitleInput] = React.useState(title);
   const inputElement = React.useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (isEditing) {
       inputElement.current!.focus();
     }
   }, [isEditing]);
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(id, e.target.value);
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleInput(e.target.value);
   };
+
+  const onClick = () => {
+    setIsEditing(true);
+  };
+
+  const onBlur = () => {
+    setIsEditing(false);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const s = e.currentTarget.value.trim();
@@ -32,9 +41,7 @@ const ColumnTitle: React.FC<ColumnProps> = ({ id, title, setTitle }) => {
       }
     }
   };
-  const onClick = () => {
-    setIsEditing(true);
-  };
+
   return (
     <div className="column-title">
       <h2 style={{ display: isEditing ? "none" : "block" }} onClick={onClick}>
@@ -44,6 +51,7 @@ const ColumnTitle: React.FC<ColumnProps> = ({ id, title, setTitle }) => {
         type="text"
         value={titleInput}
         onChange={onChange}
+        onBlur={onBlur}
         onKeyPress={handleKeyPress}
         ref={inputElement}
         style={{ display: isEditing ? "block" : "none" }}

@@ -3,12 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import Column from "./Column";
 
 const Columns = () => {
-  let initialColumns: any[] | (() => any[]) = [
-    // {
-    //   id: uuidv4(),
-    //   title: "Column 1",
-    // },
-  ];
+  let initialColumns: any[] | (() => any[]) = [];
   const [columns, setColumns] = React.useState(initialColumns);
   const onClick = (e: any) => {
     const newColumn = {
@@ -35,7 +30,6 @@ const Columns = () => {
       <button className="column add-column-btn" onClick={onClick}>
         +
       </button>
-      {/* <button onClick={onClick}>＋</button> */}
     </div>
   );
 };
