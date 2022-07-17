@@ -130,6 +130,12 @@ textarea {
   border-color: #c7baff;
 }
 
+.column-drag-enter {
+  background-color: #e6f6ff;
+  border-width: 0.15rem;
+  border-color: #bad8ff;
+}
+
 .draging {
   opacity: 0.5;
 }

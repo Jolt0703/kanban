@@ -9,7 +9,7 @@ type ColumnsProps = {
 };
 
 const Columns: React.FC<ColumnsProps> = React.memo(({ columns, setColumns }) => {
-  const onClick = (e: any) => {
+  const onClick = (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const newColumn: ColumnInfo = {
       id: uuidv4(),
       title: `Column ${columns.length + 1}`,
