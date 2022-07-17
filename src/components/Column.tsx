@@ -69,8 +69,46 @@ const ColumnTitle: React.FC<ColumnTitleProps> = React.memo(({ id, title, setTitl
 
 const Column: React.FC<ColumnProps> = React.memo(
   ({ id, title, cards, setTitle, addCard, swapCards, removeCard, moveCardToColumn }) => {
+    const initialClassName = "column";
+    const [className, setClassName] = React.useState(initialClassName);
+
+    let isOnCard = false;
+
+    const dragEnter = (_e: React.DragEvent<HTMLDivElement>) => {
+      setClassName(className + " column-drag-enter");
+    };
+
+    const dragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+      if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+      setClassName(initialClassName);
+    };
+
+    const dragDrop = (e: React.DragEvent<HTMLDivElement>) => {
+      const cardData = JSON.parse(e.dataTransfer.getData("application/json"));
+      if (cardData.columnId !== id && !isOnCard) {
+        moveCardToColumn(cardData, id);
+      }
+      setClassName(initialClassName);
+      isOnCard = false;
+    };
+
+    const dragOver = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      if (e.currentTarget.querySelectorAll(".card-drag-enter").length === 0) {
+        isOnCard = false;
+      } else {
+        isOnCard = true;
+      }
+    };
+
     return (
-      <div className="column">
+      <div
+        className={className}
+        onDragEnter={dragEnter}
+        onDragLeave={dragLeave}
+        onDrop={dragDrop}
+        onDragOver={dragOver}
+      >
         <ColumnTitle id={id} title={title} setTitle={setTitle} />
         <Cards columnId={id} cards={cards} addCard={addCard} swapCards={swapCards} removeCard={removeCard} />
       </div>
