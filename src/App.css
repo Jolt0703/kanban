@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue",
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
   color: #172b4d;
   font-size: 0.8rem;
   padding: 5px;
@@ -26,7 +26,7 @@ textarea {
   margin: 10px;
   border-color: #d0d7de;
   border-style: solid;
-  border-width: 1px;
+  border-width: 0.1rem;
   border-radius: 6px;
   flex: none;
 }
@@ -82,6 +82,18 @@ textarea {
   border-style: solid;
   border-width: 1px;
   word-wrap: break-word;
+  position: relative;
+}
+
+.card .card-edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0px 10px 15px 10px;
+  font-size: 0.8rem;
+  color: #172b4d;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .card-input {
@@ -111,11 +123,9 @@ textarea {
   background: #d9dee4;
 }
 
-.card-span:hover {
+.card:hover {
   cursor: grab;
   box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.15), 0 0 2px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
-  transition-duration: 100ms;
 }
 
 .card-input:not(:focus):hover,
@@ -149,4 +159,8 @@ textarea {
   border-radius: 10px;
   box-shadow: inset 0 0 10px 10px #909090;
   border: solid 4px transparent;
+}
+
+.translucent {
+  opacity: 0.8;
 }

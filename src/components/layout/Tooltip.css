@@ -1,0 +1,42 @@
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  width: 80px;
+  height: 43px;
+  right: 0;
+  top: 40px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  border: 1px solid #d0d7de;
+}
+
+.tooltip ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip ul li {
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tooltip ul li span {
+  font-size: 0.8rem;
+}
+
+.tooltip ul li i {
+  padding-top: 3px;
+}
+
+.fa-trash {
+  padding-right: 3px;
+}
+
+.tooltip ul li:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
