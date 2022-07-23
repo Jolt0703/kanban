@@ -1,6 +1,7 @@
 import React from "react";
 import { CardInfo } from "../types";
 import { CardsProps } from "./Cards";
+import Tooltip from "./layout/Tooltip";
 
 type InputProps = Omit<CardInfo, "text"> & Pick<CardsProps, "addCard">;
 
@@ -9,6 +10,8 @@ type CardProps = CardInfo & Pick<CardsProps, "swapCards" | "removeCard">;
 export const Card: React.FC<CardProps> = React.memo(({ id, text, columnId, swapCards, removeCard }) => {
   const initialClassName = "card card-span";
   const [className, setClassName] = React.useState(initialClassName);
+  const [isEditable, setIsEditable] = React.useState(false);
+  const cardRef = React.useRef<HTMLDivElement>(null);
 
   const dragStart = (e: React.DragEvent<HTMLDivElement>) => {
     setClassName(className + " dragging");
@@ -42,6 +45,16 @@ export const Card: React.FC<CardProps> = React.memo(({ id, text, columnId, swapC
     setClassName(initialClassName);
   };
 
+  const onMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsEditable(true);
+  };
+
+  const onMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (cardRef.current?.querySelectorAll(".tooltip").length === 0) {
+      setIsEditable(false);
+    }
+  };
+
   return (
     <div
       className={className}
@@ -52,9 +65,16 @@ export const Card: React.FC<CardProps> = React.memo(({ id, text, columnId, swapC
       onDragEnter={dragEnter}
       onDragLeave={dragLeave}
       onDragEnd={dragEnd}
-      onDoubleClick={() => removeCard(id)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      ref={cardRef}
     >
-      <span>{text}</span>
+      {isEditable ? <span className="translucent">{text}</span> : <span>{text}</span>}
+      {isEditable && (
+        <Tooltip id={id} removeCard={removeCard} setIsEditable={setIsEditable}>
+          <i className="card-edit">...</i>{" "}
+        </Tooltip>
+      )}
     </div>
   );
 });
