@@ -71,7 +71,8 @@ textarea {
   padding: 0;
 }
 
-.card {
+.card,
+.card-input {
   margin: 3px;
   padding: 10px;
   width: 220px;

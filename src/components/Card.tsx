@@ -99,15 +99,5 @@ export const NewCardInput: React.FC<InputProps> = React.memo(({ id, columnId, ad
     }
   };
 
-  return (
-    <input
-      className="card card-input"
-      type="text"
-      onChange={onChange}
-      value={text}
-      ref={inputElement}
-      onKeyPress={handleKeyPress}
-      placeholder="+ Enter a new Card"
-    />
-  );
+  return <input className="card-input" type="text" onChange={onChange} value={text} ref={inputElement} onKeyPress={handleKeyPress} placeholder="+ Enter a new Card" />;
 });
