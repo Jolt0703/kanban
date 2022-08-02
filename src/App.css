@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #172b4d;
   font-size: 0.8rem;
   padding: 5px;
@@ -97,8 +97,14 @@ textarea {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.card pre {
+  display: inline;
+  white-space: pre-wrap;
+}
+
 .card-input {
   width: 220px;
+  height: 15px;
   padding: 10px;
   margin: 7px;
   background: #fff;
@@ -107,7 +113,7 @@ textarea {
   border-width: 1px;
   border-color: #d0d7de;
   border-style: solid;
-  word-break: break-word;
+  overflow-y: hidden;
 }
 
 .card-input::placeholder {

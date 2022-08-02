@@ -69,7 +69,7 @@ export const Card: React.FC<CardProps> = React.memo(({ id, text, columnId, swapC
       onMouseLeave={onMouseLeave}
       ref={cardRef}
     >
-      {isEditable ? <span className="translucent">{text}</span> : <span>{text}</span>}
+      {isEditable ? <pre className="translucent">{text}</pre> : <pre>{text}</pre>}
       {isEditable && (
         <Tooltip id={id} removeCard={removeCard} setIsEditable={setIsEditable}>
           <i className="card-edit">...</i>{" "}
@@ -80,24 +80,43 @@ export const Card: React.FC<CardProps> = React.memo(({ id, text, columnId, swapC
 });
 
 export const NewCardInput: React.FC<InputProps> = React.memo(({ id, columnId, addCard }) => {
-  const inputElement = React.useRef<HTMLInputElement>(null);
+  const textAreaElem = React.useRef<HTMLTextAreaElement>(null);
   const [text, setText] = React.useState("");
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
-  const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const s = e.currentTarget.value.trim();
+  const handleKeyPress = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      textAreaElem.current!.style.height = "15px";
+      const s = e.currentTarget.value;
       if (s) {
-        inputElement.current!.blur();
+        textAreaElem.current!.blur();
         addCard(id, s, columnId);
         await setText("");
-        inputElement.current!.focus();
+        textAreaElem.current!.focus();
       }
     }
   };
 
-  return <input className="card-input" type="text" onChange={onChange} value={text} ref={inputElement} onKeyPress={handleKeyPress} placeholder="+ Enter a new Card" />;
+  const autoGrowHeight = () => {
+    if (text) {
+      textAreaElem.current!.style.height = "15px";
+      textAreaElem.current!.style.height = `${textAreaElem.current!.scrollHeight - 15}px`;
+    }
+  };
+
+  return (
+    <textarea
+      className="card-input"
+      onChange={onChange}
+      onInput={autoGrowHeight}
+      value={text}
+      ref={textAreaElem}
+      onKeyPress={handleKeyPress}
+      placeholder="+ Enter a new Card"
+    />
+  );
 });
