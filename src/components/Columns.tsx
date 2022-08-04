@@ -90,6 +90,15 @@ const Columns: React.FC<ColumnsProps> = React.memo(({ columns, setColumns }) => 
     setColumns(columns.map((column) => (column.id === id ? { id, title, cards: column.cards } : column)));
   };
 
+  const removeColumn = (id: string) => {
+    setColumns(
+      columns.filter((column) => {
+        if (column.id === id && column.cards.length === 0) return false;
+        return true;
+      })
+    );
+  };
+
   return (
     <div className="columns-container">
       {columns.map((column) => (
@@ -103,6 +112,7 @@ const Columns: React.FC<ColumnsProps> = React.memo(({ columns, setColumns }) => 
           swapCards={swapCards}
           removeCard={removeCard}
           moveCardToColumn={moveCardToColumn}
+          removeColumn={removeColumn}
         />
       ))}
       <button className="column add-column-btn" onClick={onClick}>

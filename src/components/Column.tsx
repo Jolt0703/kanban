@@ -8,9 +8,13 @@ export type ColumnProps = ColumnInfo & {
   swapCards: (fromCard: CardInfo, toCard: CardInfo) => void;
   removeCard: (id: string) => void;
   moveCardToColumn: (card: CardInfo, columnId: string) => void;
+  removeColumn: (id: string) => void;
 };
 
-type ColumnTitleProps = Omit<ColumnProps, "cards" | "addCard" | "swapCards" | "removeCard" | "moveCardToColumn">;
+type ColumnTitleProps = Omit<
+  ColumnProps,
+  "cards" | "addCard" | "swapCards" | "removeCard" | "moveCardToColumn" | "removeColumn"
+>;
 
 const ColumnTitle: React.FC<ColumnTitleProps> = React.memo(({ id, title, setTitle }) => {
   const [isEditing, setIsEditing] = React.useState(false);
@@ -68,7 +72,7 @@ const ColumnTitle: React.FC<ColumnTitleProps> = React.memo(({ id, title, setTitl
 });
 
 const Column: React.FC<ColumnProps> = React.memo(
-  ({ id, title, cards, setTitle, addCard, swapCards, removeCard, moveCardToColumn }) => {
+  ({ id, title, cards, setTitle, addCard, swapCards, removeCard, moveCardToColumn, removeColumn }) => {
     const initialClassName = "column";
     const [className, setClassName] = React.useState(initialClassName);
 
@@ -111,6 +115,11 @@ const Column: React.FC<ColumnProps> = React.memo(
       >
         <ColumnTitle id={id} title={title} setTitle={setTitle} />
         <Cards columnId={id} cards={cards} addCard={addCard} swapCards={swapCards} removeCard={removeCard} />
+        {!cards.length && (
+          <div className="delete-column">
+            <i onClick={() => removeColumn(id)} className="fas fa-trash"></i>
+          </div>
+        )}
       </div>
     );
   }

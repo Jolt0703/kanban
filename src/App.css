@@ -157,6 +157,23 @@ textarea {
   opacity: 0.5;
 }
 
+.delete-column {
+  display: flex;
+  justify-content: end;
+  padding: 0.2rem;
+}
+
+.delete-column i {
+  color: #355d9285;
+  font-size: small;
+  padding-left: 0.5rem;
+}
+
+.delete-column i:hover {
+  cursor: pointer;
+  color: #355d92d8;
+}
+
 ::-webkit-scrollbar {
   width: 16px;
   background-color: #f9f9f9;
