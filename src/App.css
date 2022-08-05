@@ -71,13 +71,17 @@ textarea {
   padding: 0;
 }
 
+.card {
+  min-height: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
 .card,
 .card-input {
   margin: 3px;
   padding: 10px;
   width: 220px;
   background: #fff;
-  box-shadow: 0 6px 20px 0px #dce8f4;
   border-radius: 6px;
   border-color: #d0d7de;
   border-style: solid;
@@ -108,7 +112,6 @@ textarea {
   padding: 10px;
   margin: 7px;
   background: #fff;
-  box-shadow: 0 6px 20px 0px #dce8f4;
   border-radius: 6px;
   border-width: 1px;
   border-color: #d0d7de;

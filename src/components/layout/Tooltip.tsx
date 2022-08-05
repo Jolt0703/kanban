@@ -5,22 +5,20 @@ import "./Tooltip.css";
 
 type TooltipProps = {
   children: React.ReactNode;
-  setIsEditable: React.Dispatch<React.SetStateAction<boolean>>;
-} & Pick<CardsProps, "removeCard"> &
-  Pick<CardInfo, "id">;
+  setShowToolTip: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+} & Pick<CardsProps, "removeCard"> & Pick<CardInfo, "id">;
 
-const Tooltip: React.FC<TooltipProps> = React.memo(({ children, id, removeCard, setIsEditable }) => {
+const Tooltip: React.FC<TooltipProps> = React.memo(({ children, id, removeCard, setShowToolTip, setIsEditing }) => {
   const [isShow, setIsShow] = React.useState(false);
   const tooltipElement = React.useRef<HTMLDivElement>(null);
   const clickOutside = React.useCallback(
     (e: MouseEvent) => {
       if (tooltipElement.current && !tooltipElement.current.contains(e.target as Node)) {
         setIsShow(false);
-        setIsEditable(false);
+        setShowToolTip(false);
       }
-    },
-    [tooltipElement]
-  );
+    }, [tooltipElement]);
   React.useEffect(() => {
     document.addEventListener("click", clickOutside);
     return () => {
@@ -33,7 +31,7 @@ const Tooltip: React.FC<TooltipProps> = React.memo(({ children, id, removeCard, 
       {isShow && (
         <div className="tooltip">
           <ul>
-            <li>
+            <li onClick={() => setIsEditing(true)}>
               <span>Edit</span>
               <i className="fas fa-edit"></i>
             </li>

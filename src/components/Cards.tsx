@@ -1,15 +1,15 @@
 import React from "react";
-import { Card, NewCardInput } from "./Card";
+import { Card, CardInputArea } from "./Card";
 import { v4 as uuidv4 } from "uuid";
-import { CardInfo, ColumnInfo } from "../types";
+import { CardInfo } from "../types";
 import { ColumnProps } from "./Column";
 
 export type CardsProps = {
   columnId: string;
   cards: CardInfo[];
-} & Pick<ColumnProps, "addCard" | "swapCards" | "removeCard">;
+} & Pick<ColumnProps, "addCard" | "swapCards" | "removeCard" | "updateCard">;
 
-const Cards: React.FC<CardsProps> = React.memo(({ columnId, cards, addCard, swapCards, removeCard }) => {
+const Cards: React.FC<CardsProps> = React.memo(({ columnId, cards, addCard, swapCards, removeCard, updateCard }) => {
   return (
     <div className="container">
       {cards.map((card) => (
@@ -20,9 +20,10 @@ const Cards: React.FC<CardsProps> = React.memo(({ columnId, cards, addCard, swap
           columnId={columnId}
           swapCards={swapCards}
           removeCard={removeCard}
+          updateCard={updateCard}
         />
       ))}
-      <NewCardInput id={uuidv4()} addCard={addCard} columnId={columnId} />
+      <CardInputArea id={uuidv4()} columnId={columnId} text="" addCard={addCard} updateCard={updateCard} />
     </div>
   );
 });

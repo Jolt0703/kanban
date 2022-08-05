@@ -3,17 +3,18 @@ import { CardInfo, ColumnInfo } from "../types";
 import Cards from "./Cards";
 
 export type ColumnProps = ColumnInfo & {
-  addCard: (id: string, text: string, columnId: string) => void;
+  addCard: (card: CardInfo) => void;
   setTitle: (id: string, title: string) => void;
   swapCards: (fromCard: CardInfo, toCard: CardInfo) => void;
   removeCard: (id: string) => void;
   moveCardToColumn: (card: CardInfo, columnId: string) => void;
   removeColumn: (id: string) => void;
+  updateCard: (card: CardInfo) => void;
 };
 
 type ColumnTitleProps = Omit<
   ColumnProps,
-  "cards" | "addCard" | "swapCards" | "removeCard" | "moveCardToColumn" | "removeColumn"
+  "cards" | "addCard" | "swapCards" | "removeCard" | "moveCardToColumn" | "removeColumn" | "updateCard"
 >;
 
 const ColumnTitle: React.FC<ColumnTitleProps> = React.memo(({ id, title, setTitle }) => {
@@ -72,7 +73,7 @@ const ColumnTitle: React.FC<ColumnTitleProps> = React.memo(({ id, title, setTitl
 });
 
 const Column: React.FC<ColumnProps> = React.memo(
-  ({ id, title, cards, setTitle, addCard, swapCards, removeCard, moveCardToColumn, removeColumn }) => {
+  ({ id, title, cards, setTitle, addCard, swapCards, removeCard, moveCardToColumn, removeColumn, updateCard }) => {
     const initialClassName = "column";
     const [className, setClassName] = React.useState(initialClassName);
 
@@ -114,7 +115,14 @@ const Column: React.FC<ColumnProps> = React.memo(
         onDragOver={dragOver}
       >
         <ColumnTitle id={id} title={title} setTitle={setTitle} />
-        <Cards columnId={id} cards={cards} addCard={addCard} swapCards={swapCards} removeCard={removeCard} />
+        <Cards
+          columnId={id}
+          cards={cards}
+          addCard={addCard}
+          swapCards={swapCards}
+          removeCard={removeCard}
+          updateCard={updateCard}
+        />
         {!cards.length && (
           <div className="delete-column">
             <i onClick={() => removeColumn(id)} className="fas fa-trash"></i>

@@ -18,14 +18,13 @@ const Columns: React.FC<ColumnsProps> = React.memo(({ columns, setColumns }) => 
     setColumns([...columns, newColumn]);
   };
 
-  const addCard = (id: string, text: string, columnId: string) => {
+  const addCard = (card: CardInfo) => {
     setColumns(
       columns.map((column) =>
-        column.id === columnId
+        column.id === card.columnId
           ? {
-              id: columnId,
-              title: column.title,
-              cards: [...column.cards, { id, text, columnId }],
+              ...column,
+              cards: [...column.cards, card],
             }
           : column
       )
@@ -59,6 +58,21 @@ const Columns: React.FC<ColumnsProps> = React.memo(({ columns, setColumns }) => 
           id: column.id,
           title: column.title,
           cards: column.cards.filter((card) => card.id !== id),
+        };
+      })
+    );
+  };
+
+  const updateCard = (card: CardInfo) => {
+    setColumns(
+      columns.map((column) => {
+        return {
+          id: column.id,
+          title: column.title,
+          cards: column.cards.map((c) => {
+            if (c.id === card.id) return card;
+            return c;
+          }),
         };
       })
     );
@@ -113,6 +127,7 @@ const Columns: React.FC<ColumnsProps> = React.memo(({ columns, setColumns }) => 
           removeCard={removeCard}
           moveCardToColumn={moveCardToColumn}
           removeColumn={removeColumn}
+          updateCard={updateCard}
         />
       ))}
       <button className="column add-column-btn" onClick={onClick}>
