@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Columns from "./components/Columns";
 import { ColumnInfo } from "./types";
 
-const APP_KEY = "KANBAN_APP_KEY";
+const APP_KEY = import.meta.env.VITE_REACT_KANBAN_APP_KEY;
 
 const App = () => {
   const appState = localStorage.getItem(APP_KEY);
